@@ -8,7 +8,7 @@ return {
       sh = { "shfmt" },
       python = { "isort", "black" },
       -- python = { "ruff" },
-      javascript = { "prettierd", "prettier", stop_after_first = true },
+      -- javascript = { "prettierd", "prettier", stop_after_first = true },
       json = { "jq" },
     },
     -- The options you set here will be merged with the builtin formatters.

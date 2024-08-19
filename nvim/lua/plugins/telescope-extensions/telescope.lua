@@ -3,6 +3,14 @@ return {
     "nvim-telescope/telescope.nvim",
     keys = {
       -- Keymaps for telescope extensions
+      -- Overridden - was "<leader>," for Switch Buffer
+      { "<leader>,", false },
+      {
+        "<leader>j",
+        "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>",
+        desc = "Switch Buffer",
+      },
+      { "<leader>sR", "<cmd>Telescope resume<cr>", desc = "Resume" },
       -- I overrode sd -> sx because it's closer to x in which-key diagnostics group
       { "<leader>sD", false },
       { "<leader>sx", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document Diagnostics" },
@@ -50,6 +58,7 @@ return {
     config = function()
       local telescope = require("telescope")
       local actions = require("telescope.actions")
+      local action_state = require("telescope.actions.state")
 
       local send_find_files_to_live_grep = function()
         local files = {}
@@ -104,6 +113,27 @@ return {
         pickers = {
           -- Your special builtin config goes in here
           buffers = {
+            attach_mappings = function(_, map)
+              local num_buffers = vim.fn.len(vim.fn.getbufinfo({ buflisted = 1 }))
+
+              for i = 1, num_buffers do
+                map("i", tostring(i), function(prompt_bufnr)
+                  local picker = action_state.get_current_picker(prompt_bufnr)
+                  local entry = picker:get_selection(i)
+                  actions.close(prompt_bufnr)
+                  vim.api.nvim_set_current_buf(entry.bufnr)
+                end)
+
+                map("n", tostring(i), function(prompt_bufnr)
+                  local picker = action_state.get_current_picker(prompt_bufnr)
+                  local entry = picker:get_selection(i)
+                  actions.close(prompt_bufnr)
+                  vim.api.nvim_set_current_buf(entry.bufnr)
+                end)
+              end
+
+              return true
+            end,
             initial_mode = "normal",
             sort_lastused = true,
             theme = "dropdown",
@@ -126,6 +156,9 @@ return {
                 ["<c-f>"] = send_find_files_to_live_grep,
               },
             },
+          },
+          grep_string = {
+            initial_mode = "normal",
           },
         },
       })

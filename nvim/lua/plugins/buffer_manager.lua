@@ -2,7 +2,7 @@ return {
   "j-morano/buffer_manager.nvim",
   dependencies = { "nvim-lua/plenary.nvim" },
   keys = {
-    { "<leader>j", '<cmd>lua require("buffer_manager.ui").toggle_quick_menu()<CR>', desc = "Buffer Manager" },
+    { "<leader>,", '<cmd>lua require("buffer_manager.ui").toggle_quick_menu()<CR>', desc = "Buffer Manager" },
   },
   opt = {
     select_menu_item_commands = {

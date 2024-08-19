@@ -5,7 +5,7 @@ return {
       "pyright",
       "black",
       "flake8",
-      "prettier",
+      -- "prettier",
     },
   },
 }
