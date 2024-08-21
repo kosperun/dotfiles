@@ -76,14 +76,34 @@ return {
         },
         lualine_x = {
           -- stylua: ignore
-          { "filetype", icon_only = false, separator = "", padding = { left = 1, right = 0 } },
+          -- Show when macro is being recorded
+          -- Customized from https://www.reddit.com/r/neovim/comments/18r2bxo/comment/keze7b9/
+          {
+            function()
+              local reg = vim.fn.reg_recording()
+              if reg == "" then return "" end -- not recording
+              return "recording to " .. reg
+            end,
+            color = { bg = "#fc5d7c", fg = "#181819", gui = "bold" },
+            separator = { left = "", right = "" },
+          },
+          {
+            "filetype",
+            icon_only = false,
+            separator = { left = "", right = "" },
+            padding = { left = 1, right = 1 },
+          },
         },
         lualine_y = {
-          { "searchcount" },
+          {
+            "searchcount",
+            color = { bg = "#fc5d7c", fg = "#181819", gui = "bold" },
+            separator = { left = "", right = "" },
+          },
           {
             "progress",
-            separator = " ",
-            padding = { left = 1, right = 0 },
+            separator = { left = "", right = "" },
+            padding = { left = 1, right = 1 },
           },
           {
             "location",
