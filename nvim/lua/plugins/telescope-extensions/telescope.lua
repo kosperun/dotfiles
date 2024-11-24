@@ -31,6 +31,13 @@ return {
         desc = "Find files in directory",
       },
       {
+        "<leader>fl",
+        "<cmd>Telescope frecency<CR>",
+        { noremap = true, silent = true },
+        desc = "Find frecent files",
+      },
+      {
+        -- FabianWirth/search.nvim:
         "<leader>y",
         "<cmd>lua require('search').open()<CR>",
         "Search with tabs",
@@ -159,6 +166,14 @@ return {
           },
           grep_string = {
             initial_mode = "normal",
+          },
+        },
+        extensions = {
+          frecency = {
+            enable_prompt_mappings = true,
+            ignore_patterns = { "*.git/*", "*/tmp/*", "term://*", ".*/venv/.*" },
+            show_scores = true,
+            show_unindexed = true,
           },
         },
       })
