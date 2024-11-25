@@ -110,7 +110,7 @@ return {
           layout_strategy = "horizontal",
           layout_config = { prompt_position = "top" },
           sorting_strategy = "ascending",
-          file_ignore_patterns = { "creative/", ".*package%-lock%.json" },
+          file_ignore_patterns = { "creative/", ".*package%-lock%.json", ".*/js/libs/.*" },
           winblend = 0,
           history = {
             path = "~/.local/share/nvim/databases/telescope_history.sqlite3",
