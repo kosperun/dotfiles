@@ -75,6 +75,13 @@ return {
           },
         },
         lualine_x = {
+          -- Show pressed keys
+          {
+            require("noice").api.status.command.get,
+            cond = require("noice").api.status.command.has,
+            color = { fg = "#ff9e64" },
+          },
+
           -- stylua: ignore
           -- Show when macro is being recorded
           -- Customized from https://www.reddit.com/r/neovim/comments/18r2bxo/comment/keze7b9/
