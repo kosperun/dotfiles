@@ -1,6 +1,7 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
+vim.keymap.set("v", "<leader><C-a>", '"hy:%s/\\v<C-r>h//g<left><left>', { desc = "Change selection" })
 vim.api.nvim_set_keymap("n", "n", "nzz", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "N", "Nzz", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<C-d>", "<C-d>zz", { noremap = true, silent = true })
@@ -11,7 +12,8 @@ vim.api.nvim_set_keymap("n", "[c", "[czz", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "]c", "]czz", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>gU", "<cmd>GitBlameOpenCommitURL<CR>", { desc = "Open commit URL" })
 
--- Swap buffers in split
+-- ##########################################################################################
+-- SWAP BUFFERS IN SPLIT
 function SwapBuffers()
   if vim.fn.winnr("$") == 2 then
     local buf1 = vim.fn.winbufnr(1)
@@ -26,6 +28,8 @@ function SwapBuffers()
 end
 vim.api.nvim_set_keymap("n", "<leader>bs", "<cmd>lua SwapBuffers()<CR>", { desc = "Swap split buffers" })
 
+-- ##########################################################################################
+-- OPEN PYTHON FILE FROM TERMINAL
 -- Define the OpenFile function
 function OpenFile()
   -- Get the current word under the cursor
@@ -46,19 +50,37 @@ function OpenFile()
     end
   end
 end
-
 -- Function to set keymap in the terminal buffer
 local function set_gf_keymap()
   local buf = vim.api.nvim_get_current_buf()
   vim.api.nvim_buf_set_keymap(buf, "n", "gf", "<cmd>lua OpenFile()<CR>", { noremap = true, silent = true })
 end
-
 -- Create an augroup
 local toggleterm_augroup = vim.api.nvim_create_augroup("ToggleTermGFMapping", { clear = true })
-
 -- Create an autocommand for TermOpen event
 vim.api.nvim_create_autocmd("TermOpen", {
   group = toggleterm_augroup,
   pattern = "term://*toggleterm#*",
   callback = set_gf_keymap,
 })
+
+-- ##########################################################################################
+-- DISPLAY NOTIFICATION WHEN SETTING MARKS
+local notify = require("notify")
+-- Custom function to notify when a mark is set
+local function notify_mark_set(mark)
+  -- Get the current position
+  local line = vim.fn.line(".")
+  local col = vim.fn.col(".")
+  -- Show a notification with mark info
+  notify(string.format("Mark '%s' set at line %d, column %d", mark, line, col), "info", { title = "Mark Set" })
+end
+-- Map the 'm' command to trigger the notification
+vim.keymap.set("n", "m", function()
+  -- Capture the mark character
+  local char = vim.fn.getcharstr()
+  -- Set the mark using the captured character
+  vim.cmd("normal! m" .. char)
+  -- Notify the user about the mark
+  notify_mark_set(char)
+end, { noremap = true, silent = true })
