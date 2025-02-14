@@ -11,7 +11,7 @@ return {
       -- This didn't work and excluded dirs were seen
       -- grep_opts = "--binary-files=without-match --line-number --recursive --color=auto --perl-regexp --exclude-dir=tests -e",
       -- With trial and error I could find that it is the following option that controls what dirs are excluded from <leader>sg
-      rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 -g '!*/tests/*' -g '!*/api/*' -e",
+      rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 -g '!*/tests/*' -e",
     },
   },
   keys = {
