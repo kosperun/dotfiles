@@ -17,5 +17,6 @@ return {
     },
     order_buffers = "lastused",
     highlight = "Normal:BufferManagerBorder",
+    short_file_names = true,
   },
 }

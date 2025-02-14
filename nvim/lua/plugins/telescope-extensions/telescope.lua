@@ -155,6 +155,7 @@ return {
             },
           },
           find_files = {
+            hidden = true,
             mappings = {
               n = {
                 ["<c-f>"] = send_find_files_to_live_grep,
@@ -164,6 +165,9 @@ return {
               },
             },
           },
+          -- live_grep = {
+          --   vimgrep_arguments = { "-F" },
+          -- },
           grep_string = {
             initial_mode = "normal",
           },

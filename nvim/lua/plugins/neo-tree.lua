@@ -59,6 +59,7 @@ return {
             end
           end)
         end,
+        description = "Copy paths to clipboard",
       },
     },
   },
