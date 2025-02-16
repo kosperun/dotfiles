@@ -14,6 +14,7 @@ vim.api.nvim_set_keymap("n", "<leader>gU", "<cmd>GitBlameOpenCommitURL<CR>", { d
 
 -- ##########################################################################################
 -- SWAP BUFFERS IN SPLIT
+-- ##########################################################################################
 function SwapBuffers()
   if vim.fn.winnr("$") == 2 then
     local buf1 = vim.fn.winbufnr(1)
@@ -30,6 +31,7 @@ vim.api.nvim_set_keymap("n", "<leader>bs", "<cmd>lua SwapBuffers()<CR>", { desc 
 
 -- ##########################################################################################
 -- OPEN PYTHON FILE FROM TERMINAL
+-- ##########################################################################################
 -- Define the OpenFile function
 function OpenFile()
   -- Get the current word under the cursor
@@ -66,14 +68,21 @@ vim.api.nvim_create_autocmd("TermOpen", {
 
 -- ##########################################################################################
 -- DISPLAY NOTIFICATION WHEN SETTING MARKS
-local notify = require("notify")
+-- ##########################################################################################
 -- Custom function to notify when a mark is set
+-- nvim-notify was replaced by Snacks.notifier
+-- local notify = require("notify")
 local function notify_mark_set(mark)
   -- Get the current position
   local line = vim.fn.line(".")
   local col = vim.fn.col(".")
   -- Show a notification with mark info
-  notify(string.format("Mark '%s' set at line %d, column %d", mark, line, col), "info", { title = "Mark Set" })
+  -- notify(string.format("Mark '%s' set at line %d, column %d", mark, line, col), "info", { title = "Mark Set" })
+  Snacks.notifier.notify(
+    string.format("Mark '%s' set at line %d, column %d", mark, line, col),
+    "info",
+    { title = "Mark Set" }
+  )
 end
 -- Map the 'm' command to trigger the notification
 vim.keymap.set("n", "m", function()
