@@ -53,3 +53,10 @@ vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost" }, {
 --     vim.b.autoformat = false
 --   end,
 -- })
+
+vim.api.nvim_create_autocmd("BufReadPost", {
+  pattern = { "*.csv", "*.tsv" },
+  callback = function()
+    require("csvview").enable()
+  end,
+})
