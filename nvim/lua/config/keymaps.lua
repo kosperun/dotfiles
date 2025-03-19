@@ -93,3 +93,58 @@ vim.keymap.set("n", "m", function()
   -- Notify the user about the mark
   notify_mark_set(char)
 end, { noremap = true, silent = true })
+
+-- ##########################################################################################
+-- COPY CURRENT BUFFER PATHS TO CLIPBOARD
+-- ##########################################################################################
+function copy_paths_to_clipboard()
+  -- Get current buffer's file information
+  local filepath = vim.fn.expand("%:p") -- Absolute path
+  local filename = vim.fn.expand("%:t") -- Filename (with extension)
+  local modify = vim.fn.fnamemodify
+
+  -- Calculate the relative path for Python imports
+  local cwd = vim.fn.getcwd()
+  local relative_path = modify(filepath, ":.") -- Relative path (CWD)
+  local python_import_path = relative_path:gsub(cwd .. "/", ""):gsub("/", "."):gsub("%.py$", "")
+
+  -- Results to show in the selection menu
+  local results = {
+    python_import_path, -- 1: Python import path
+    relative_path, -- 2: Relative path (CWD)
+    filename, -- 3: Filename
+    modify(filename, ":r"), -- 4: Filename without extension
+    filepath, -- 5: Absolute path
+    modify(filepath, ":~"), -- 6: Relative path (HOME)
+  }
+
+  -- Show the choices in a modal-like interface
+  vim.ui.select({
+    "1. Python import path: " .. results[1],
+    "2. Relative path (CWD): " .. results[2],
+    "3. Filename: " .. results[3],
+    "4. Filename without extension: " .. results[4],
+    "5. Absolute path: " .. results[5],
+    "6. Relative path (HOME): " .. results[6],
+  }, { prompt = "Choose to copy to clipboard:" }, function(choice)
+    if choice then
+      local i = tonumber(choice:sub(1, 1))
+      if i then
+        local result = results[i]
+        vim.fn.setreg("+", result) -- Copy to clipboard
+        vim.notify("Copied: " .. result)
+      else
+        vim.notify("Invalid selection")
+      end
+    else
+      vim.notify("Selection cancelled")
+    end
+  end)
+end
+
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>P",
+  ":lua copy_paths_to_clipboard()<CR>",
+  { desc = "Copy buffer's path", noremap = true, silent = true }
+)
