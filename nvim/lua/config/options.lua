@@ -11,3 +11,4 @@ vim.o.foldmethod = "manual"
 vim.g.python_host_prog = "~/.venvs/.nvim-venv/bin/python"
 vim.g.python3_host_prog = "~/venvs/.nvim-venv/bin/python"
 vim.opt.autoread = true
+vim.g.snacks_animate = false
