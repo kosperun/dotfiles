@@ -5,6 +5,8 @@ return {
       "pyright",
       "black",
       "flake8",
+      "ruff",
+      -- "javascript",
       -- "prettier",
     },
   },

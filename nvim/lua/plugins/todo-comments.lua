@@ -9,8 +9,12 @@ return {
         alt = { "FIXME", "fixme", "BUG", "FIXIT", "ISSUE" }, -- a set of other keywords that all map to this FIX keywords
         -- signs = false, -- configure signs for some keywords individually
       },
-      TODO = { icon = " ", color = "info", alt = { "todo" } },
-      NOTE = { icon = " ", color = "hint", alt = { "INFO", "note" } },
+      TODO = { icon = " ", color = "warning", alt = { "todo" } },
+      TECH_DEBT = { icon = " ", color = "info", alt = { "tech debt", "TECH DEBT", "Tech Debt", "Tech debt" } },
+      NOTE = { icon = " ", color = "hint", alt = { "INFO", "note", "Note" } },
+    },
+    highlight = {
+      pattern = [[.*<(KEYWORDS)\s*]], -- pattern or table of patterns, used for highlighting (vim regex)
     },
     search = {
       -- regex that will be used to match keywords.

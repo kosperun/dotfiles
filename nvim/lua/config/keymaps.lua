@@ -30,43 +30,6 @@ end
 vim.api.nvim_set_keymap("n", "<leader>bs", "<cmd>lua SwapBuffers()<CR>", { desc = "Swap split buffers" })
 
 -- ##########################################################################################
--- OPEN PYTHON FILE FROM TERMINAL
--- ##########################################################################################
--- Define the OpenFile function
-function OpenFile()
-  -- Get the current word under the cursor
-  local file_path = vim.fn.getline(".")
-  -- Extract the file path and line number if present
-  local file, line, col = file_path:match("([^:]+):?(%d*):?(%d*):?.*")
-  -- If file doesn't contain ".py", add ".py" extension unless it ends with ".py"
-  if not file:find("%.py$") then
-    file = file .. ".py"
-  end
-  -- Open the file
-  vim.cmd("edit " .. file)
-  -- If line number is specified, navigate to that line (and column if specified)
-  if line ~= "" then
-    vim.cmd("normal! " .. line .. "G")
-    if col ~= "" then
-      vim.cmd("normal! " .. col .. "|")
-    end
-  end
-end
--- Function to set keymap in the terminal buffer
-local function set_gf_keymap()
-  local buf = vim.api.nvim_get_current_buf()
-  vim.api.nvim_buf_set_keymap(buf, "n", "gf", "<cmd>lua OpenFile()<CR>", { noremap = true, silent = true })
-end
--- Create an augroup
-local toggleterm_augroup = vim.api.nvim_create_augroup("ToggleTermGFMapping", { clear = true })
--- Create an autocommand for TermOpen event
-vim.api.nvim_create_autocmd("TermOpen", {
-  group = toggleterm_augroup,
-  pattern = "term://*toggleterm#*",
-  callback = set_gf_keymap,
-})
-
--- ##########################################################################################
 -- DISPLAY NOTIFICATION WHEN SETTING MARKS
 -- ##########################################################################################
 -- Custom function to notify when a mark is set
@@ -147,4 +110,50 @@ vim.api.nvim_set_keymap(
   "<leader>P",
   ":lua copy_paths_to_clipboard()<CR>",
   { desc = "Copy buffer's path", noremap = true, silent = true }
+)
+
+-- ############################################################################
+-- Go to definition in another split
+-- ############################################################################
+-- In your Neovim config (e.g., ~/.config/nvim/lua/your_config/init.lua)
+function GoToDefinitionInSplit()
+  -- Check how many windows are open
+  local wins = vim.api.nvim_tabpage_list_wins(0)
+  local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
+
+  local current_buf = vim.api.nvim_get_current_buf()
+  local current_win = vim.api.nvim_get_current_win()
+
+  local target_win
+
+  -- If there are already splits, then take the next one and set buffer to current buffer
+  if #wins >= 2 then
+    for _, win_num in pairs(wins) do
+      if win_num ~= current_win then
+        target_win = win_num
+      end
+    end
+  else
+    target_win = current_win
+    vim.cmd("vsplit")
+  end
+
+  -- Set buffer for new window
+  vim.api.nvim_win_set_buf(target_win, current_buf)
+
+  -- Copy cursor position to new window for lsp defintion
+  vim.api.nvim_win_set_cursor(target_win, current_cursor_pos)
+
+  -- Focus new window
+  vim.api.nvim_set_current_win(target_win)
+
+  -- Call lsp
+  vim.lsp.buf.definition()
+end
+
+vim.api.nvim_set_keymap(
+  "n",
+  "ga",
+  "<cmd>lua GoToDefinitionInSplit()<CR>",
+  { desc = "Go to Definition in another split" }
 )
