@@ -11,11 +11,11 @@ return {
     link_tree_to_folds = true,
     lazy_load = false,
     -- Could not get it to work with these events
-    -- close_automatic_events= {'switch_buffer', 'unfocus'}
+    close_automatic_events = { "switch_buffer", "unfocus" },
     on_attach = function(bufnr)
       -- Jump forwards/backwards with '{' and '}'
-      vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
-      vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
+      -- vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+      -- vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
     end,
   },
   dependencies = {

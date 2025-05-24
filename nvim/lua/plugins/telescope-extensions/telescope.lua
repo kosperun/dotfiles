@@ -88,8 +88,8 @@ return {
               ["<C-.>"] = function()
                 require("telescope-picker-history-action").next_picker()
               end,
-              ["<C-Up>"] = actions.cycle_history_next,
-              ["<C-Down>"] = actions.cycle_history_prev,
+              -- ["<C-Down>"] = actions.cycle_history_next,
+              -- ["<C->Up"] = actions.cycle_history_prev,
               ["<c-e>"] = actions.to_fuzzy_refine,
               -- {
               --   "<C-i>",
