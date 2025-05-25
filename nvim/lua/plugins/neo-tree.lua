@@ -6,6 +6,7 @@ return {
         hide_dotfiles = false,
         always_show = { -- remains visible even if other settings would normally hide it
           ".env",
+          ".backend.env",
         },
         hide_by_name = {
           ".vscode",
