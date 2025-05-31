@@ -1,3 +1,5 @@
+local constants = require("config.constants")
+
 return {
   "stevearc/conform.nvim",
   opts = {
@@ -15,10 +17,16 @@ return {
     formatters = {
       injected = { options = { ignore_errors = true } },
       -- black = {
-      --   prepend_args = { "--line-length", "120" },
+      --   prepend_args = { "--line-length", tostring(constants.max_line_length) },
       -- },
       -- isort = {
-      --   prepend_args = { "--profile", "black", "--line-length=120", "--trailing-comma", "--multi-line=3" },
+      --   prepend_args = {
+      --     "--profile",
+      --     "black",
+      --     "--line-length= .. constants.max_line_length",
+      --     "--trailing-comma",
+      --     "--multi-line=3",
+      --   },
       -- },
     },
   },

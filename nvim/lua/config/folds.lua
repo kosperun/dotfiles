@@ -1,3 +1,4 @@
+local constants = require("config.constants")
 local M = {}
 
 function M.custom_fold_text()
@@ -7,7 +8,7 @@ function M.custom_fold_text()
   local icon = ""
   -- Reserve space for icon + " ... [count lines]" + some padding
   local suffix = string.format(" ... [%d lines]", count)
-  local max_width = 119
+  local max_width = constants.max_line_length - 1
   local max_line_length = max_width - vim.fn.strdisplaywidth(icon .. suffix) - 1
 
   -- Trim line if too long
