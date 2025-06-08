@@ -2,7 +2,7 @@ return {
   "sindrets/diffview.nvim",
   keys = {
     {
-      "<leader>gd",
+      "<leader>gd CUSTOM",
       function()
         local lib = require("diffview.lib")
         local view = lib.get_current_view()
@@ -18,6 +18,6 @@ return {
     },
     -- Old keymap, testing the new toggle one above.
     -- { "<leader>gd", "<cmd>DiffviewOpen<CR>", desc = "Open DiffView" },
-    { "<leader>gH", "<cmd>DiffviewFileHistory %<CR>", desc = "Show File History in DiffView" },
+    { "<leader>gH", "<cmd>DiffviewFileHistory %<CR>", desc = "Show File History in DiffView CUSTOM" },
   },
 }

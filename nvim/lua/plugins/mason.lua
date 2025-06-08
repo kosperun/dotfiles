@@ -8,6 +8,10 @@ return {
       "ruff",
       -- "javascript",
       -- "prettier",
+      -- code spell
+      "codespell",
+      -- "misspell",
+      "cspell",
     },
   },
 }

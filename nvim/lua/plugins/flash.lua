@@ -3,9 +3,16 @@ return {
     "folke/flash.nvim",
     enabled = true,
     opts = {
+      -- Disable dimming screen when searching with flash
       highlight = {
         backdrop = false, -- this doesn't do what I'd expect (i.e. remove the comment-colored backdrop)
         groups = { backdrop = "" },
+      },
+      -- Disable flash for ftFT and revert to the vanilla vim behavior
+      modes = {
+        char = {
+          enabled = false,
+        },
       },
     },
     keys = {

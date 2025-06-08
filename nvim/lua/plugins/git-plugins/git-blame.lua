@@ -6,6 +6,6 @@ return {
     date_format = "%Y-%b-%d %H:%M:%S %a (%r)",
   },
   keys = {
-    { "<leader>gt", "<cmd>GitBlameToggle<cr>", desc = "Git Blame Toggle" },
+    { "<leader>gt", "<cmd>GitBlameToggle<cr>", desc = "Git Blame Toggle CUSTOM" },
   },
 }
