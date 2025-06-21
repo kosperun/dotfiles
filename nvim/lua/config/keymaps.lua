@@ -11,6 +11,8 @@ vim.api.nvim_set_keymap("n", "<C-i>", "<C-i>zz", { noremap = true, silent = true
 vim.api.nvim_set_keymap("n", "[c", "[czz", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "]c", "]czz", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>gU", "<cmd>GitBlameOpenCommitURL<CR>", { desc = "Open commit URL" })
+vim.keymap.del("n", "<S-h>")
+vim.keymap.del("n", "<S-l>")
 
 -- ##########################################################################################
 -- SWAP BUFFERS IN SPLIT
