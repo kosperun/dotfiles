@@ -17,4 +17,3 @@ vim.o.colorcolumn = tostring(constants.max_line_length)
 vim.o.conceallevel = 1
 vim.o.foldmethod = "manual"
 vim.o.foldtext = "v:lua.require'config.folds'.custom_fold_text()"
--- vim.o.statuscolumn = "%s %{v:lnum} %{v:relnum} "
