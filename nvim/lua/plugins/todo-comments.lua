@@ -10,7 +10,11 @@ return {
         -- signs = false, -- configure signs for some keywords individually
       },
       TODO = { icon = " ", color = "warning", alt = { "todo" } },
-      TECH_DEBT = { icon = " ", color = "info", alt = { "tech debt", "TECH DEBT", "Tech Debt", "Tech debt" } },
+      TECH_DEBT = {
+        icon = " ",
+        color = "info",
+        alt = { "tech debt", "TECH DEBT", "TECHDEBT", "techdebt", "Tech Debt", "Tech debt" },
+      },
       NOTE = { icon = " ", color = "hint", alt = { "INFO", "note", "Note" } },
     },
     highlight = {

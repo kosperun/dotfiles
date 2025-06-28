@@ -15,6 +15,18 @@ vim.keymap.del("n", "<S-h>")
 vim.keymap.del("n", "<S-l>")
 
 -- ##########################################################################################
+-- COPY BUFFERS INTO SPLIT
+-- ##########################################################################################
+
+vim.keymap.set("n", "<leader>bl", function()
+  vim.api.nvim_set_current_buf(vim.fn.winbufnr(vim.fn.winnr("l")))
+end, { desc = "Copy buffer from right split (CUSTOM)" })
+
+vim.keymap.set("n", "<leader>bh", function()
+  vim.api.nvim_set_current_buf(vim.fn.winbufnr(vim.fn.winnr("h")))
+end, { desc = "Copy buffer from left split (CUSTOM)" })
+
+-- ##########################################################################################
 -- SWAP BUFFERS IN SPLIT
 -- ##########################################################################################
 function SwapBuffers()
@@ -29,7 +41,7 @@ function SwapBuffers()
     print("This function works only with two windows")
   end
 end
-vim.api.nvim_set_keymap("n", "<leader>bs", "<cmd>lua SwapBuffers()<CR>", { desc = "Swap split buffers" })
+vim.api.nvim_set_keymap("n", "<leader>bs", "<cmd>lua SwapBuffers()<CR>", { desc = "Swap split buffers (CUSTOM)" })
 
 -- ##########################################################################################
 -- DISPLAY NOTIFICATION WHEN SETTING MARKS
@@ -111,7 +123,7 @@ vim.api.nvim_set_keymap(
   "n",
   "<leader>P",
   ":lua copy_paths_to_clipboard()<CR>",
-  { desc = "Copy buffer's path", noremap = true, silent = true }
+  { desc = "Copy buffer's path (CUSTOM)", noremap = true, silent = true }
 )
 
 -- ############################################################################
@@ -157,5 +169,5 @@ vim.api.nvim_set_keymap(
   "n",
   "ga",
   "<cmd>lua GoToDefinitionInSplit()<CR>",
-  { desc = "Go to Definition in another split" }
+  { desc = "Go to Definition in another split (CUSTOM)" }
 )
