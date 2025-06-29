@@ -1,7 +1,7 @@
 return {
   "stevearc/aerial.nvim",
   keys = {
-    { "<leader>a", "<cmd>AerialToggle<CR>", desc = "Aerial (Code structure) - CUSTOM" },
+    { "<leader>a", "<cmd>AerialToggle<CR>", desc = "Aerial (Code structure) (CUSTOM)" },
   },
   opts = {
     manage_folds = true,

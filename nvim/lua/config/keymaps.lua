@@ -1,6 +1,7 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
+
 vim.keymap.set("v", "<leader><C-a>", '"hy:%s/\\v<C-r>h//g<left><left>', { desc = "Change selection" })
 vim.api.nvim_set_keymap("n", "n", "nzz", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "N", "Nzz", { noremap = true, silent = true })
@@ -43,6 +44,60 @@ function SwapBuffers()
 end
 vim.api.nvim_set_keymap("n", "<leader>bs", "<cmd>lua SwapBuffers()<CR>", { desc = "Swap split buffers (CUSTOM)" })
 
+-- ############################################################################
+-- Go to definition in another split
+-- ############################################################################
+function GoToDefinitionInSplit()
+  local current_win = vim.api.nvim_get_current_win()
+
+  -- Try to find an existing split
+  local wins = vim.api.nvim_tabpage_list_wins(0)
+  local target_win = nil
+
+  for _, win in ipairs(wins) do
+    if win ~= current_win then
+      target_win = win
+      break
+    end
+  end
+
+  -- Create vsplit if needed
+  if not target_win then
+    vim.cmd("vsplit")
+    target_win = vim.api.nvim_get_current_win()
+    vim.api.nvim_set_current_win(current_win)
+  end
+
+  -- Find encoding used by the first LSP client
+  local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+  local encoding = "utf-8" -- fallback
+  if #clients > 0 and clients[1].offset_encoding then
+    encoding = clients[1].offset_encoding
+  end
+
+  local params = vim.lsp.util.make_position_params(encoding)
+
+  -- Custom handler for split
+  local function handler(_, result, ctx, _)
+    if not result or vim.tbl_isempty(result) then
+      vim.notify("No definition found", vim.log.levels.INFO)
+      return
+    end
+
+    local util = vim.lsp.util
+    local location = result[1] or result
+    vim.api.nvim_set_current_win(target_win)
+    util.jump_to_location(location, encoding)
+  end
+
+  -- Request LSP definition
+  vim.lsp.buf_request(0, "textDocument/definition", params, handler)
+end
+
+vim.keymap.set("n", "ga", GoToDefinitionInSplit, {
+  desc = "Go to definition in existing split (no warnings)",
+  silent = true,
+})
 -- ##########################################################################################
 -- DISPLAY NOTIFICATION WHEN SETTING MARKS
 -- ##########################################################################################
@@ -121,53 +176,57 @@ end
 
 vim.api.nvim_set_keymap(
   "n",
-  "<leader>P",
+  "<leader>yf",
   ":lua copy_paths_to_clipboard()<CR>",
   { desc = "Copy buffer's path (CUSTOM)", noremap = true, silent = true }
 )
 
--- ############################################################################
--- Go to definition in another split
--- ############################################################################
--- In your Neovim config (e.g., ~/.config/nvim/lua/your_config/init.lua)
-function GoToDefinitionInSplit()
-  -- Check how many windows are open
-  local wins = vim.api.nvim_tabpage_list_wins(0)
-  local current_cursor_pos = vim.api.nvim_win_get_cursor(0)
+-- ##########################################################################################
+-- COPY PYTHON METHOD/CLASS FULL PATH (pytest style - full filepath::Class::method)
+-- ##########################################################################################
+vim.keymap.set("n", "<leader>yt", function()
+  local ts_utils = require("nvim-treesitter.ts_utils")
+  local node = ts_utils.get_node_at_cursor()
 
-  local current_buf = vim.api.nvim_get_current_buf()
-  local current_win = vim.api.nvim_get_current_win()
+  local class_name = nil
+  local function_name = nil
 
-  local target_win
-
-  -- If there are already splits, then take the next one and set buffer to current buffer
-  if #wins >= 2 then
-    for _, win_num in pairs(wins) do
-      if win_num ~= current_win then
-        target_win = win_num
+  while node do
+    if node:type() == "function_definition" and not function_name then
+      local name_node = node:field("name")[1]
+      if name_node then
+        function_name = vim.treesitter.get_node_text(name_node, 0)
+      end
+    elseif node:type() == "class_definition" and not class_name then
+      local name_node = node:field("name")[1]
+      if name_node then
+        class_name = vim.treesitter.get_node_text(name_node, 0)
       end
     end
-  else
-    target_win = current_win
-    vim.cmd("vsplit")
+    node = node:parent()
   end
 
-  -- Set buffer for new window
-  vim.api.nvim_win_set_buf(target_win, current_buf)
+  local relpath = vim.fn.expand("%")
+  local test_path = relpath
+  if class_name then
+    test_path = test_path .. "::" .. class_name
+  end
+  if function_name then
+    test_path = test_path .. "::" .. function_name
+  end
 
-  -- Copy cursor position to new window for lsp defintion
-  vim.api.nvim_win_set_cursor(target_win, current_cursor_pos)
+  if not function_name then
+    print("⚠️ Could not determine function name.")
+    return
+  end
 
-  -- Focus new window
-  vim.api.nvim_set_current_win(target_win)
+  vim.fn.setreg("+", test_path)
+  print("✅ Copied test path: " .. test_path)
+end, { desc = "Copy pytest test path using treesitter (CUSTOM)", silent = true })
+-- local docker_cmd = "docker exec -it my_app_container pytest " .. test_path
+-- vim.fn.setreg("+", docker_cmd)
+-- print("Copied: " .. docker_cmd)
 
-  -- Call lsp
-  vim.lsp.buf.definition()
-end
-
-vim.api.nvim_set_keymap(
-  "n",
-  "ga",
-  "<cmd>lua GoToDefinitionInSplit()<CR>",
-  { desc = "Go to Definition in another split (CUSTOM)" }
-)
+-- Optional: Run in terminal
+-- vim.cmd("split | terminal " .. docker_cmd)
+-- end, { desc = "Run pytest in Docker using Tree-sitter", silent = true })

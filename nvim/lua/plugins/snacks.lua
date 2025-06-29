@@ -5,9 +5,28 @@ return {
     {
       "<leader>j",
       function()
-        Snacks.picker.buffers()
+        Snacks.picker.buffers({
+          -- I always want my buffers picker to start in normal mode
+          on_show = function()
+            vim.cmd.stopinsert()
+          end,
+          finder = "buffers",
+          format = "buffer",
+          hidden = false,
+          unloaded = true,
+          current = true,
+          sort_lastused = true,
+          win = {
+            input = {
+              keys = {
+                ["dd"] = "bufdelete",
+              },
+            },
+            list = { keys = { ["d"] = "bufdelete" } },
+          },
+        })
       end,
-      desc = "Buffers",
+      desc = "Buffers (CUSTOM)",
     },
     --   {
     --     "<leader>sw",
