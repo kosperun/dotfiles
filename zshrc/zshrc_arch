@@ -143,7 +143,9 @@ alias de='deactivate'
 alias py='ipython'
 
 ### Poetry specific aliases
-alias pa = source "$(poetry env info --path)/bin/activate"
+pa() {
+  source "$(poetry env info --path)/bin/activate"
+}
 # alias ps='poetry shell'
 # alias pm='manage'
 # alias mm='manage makemigrations'
