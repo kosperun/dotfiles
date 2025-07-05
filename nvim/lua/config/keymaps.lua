@@ -3,15 +3,15 @@
 -- Add any additional keymaps here
 
 vim.keymap.set("v", "<leader><C-a>", '"hy:%s/\\v<C-r>h//g<left><left>', { desc = "Change selection" })
-vim.api.nvim_set_keymap("n", "n", "nzz", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "N", "Nzz", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<C-d>", "<C-d>zz", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<C-u>", "<C-u>zz", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<C-o>", "<C-o>zz", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<C-i>", "<C-i>zz", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "[c", "[czz", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "]c", "]czz", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>gU", "<cmd>GitBlameOpenCommitURL<CR>", { desc = "Open commit URL" })
+vim.keymap.set("n", "n", "<Cmd>keepjumps normal! nzz<CR>", { noremap = true, silent = true }) -- Exclude from polluting jumplist
+vim.keymap.set("n", "N", "<Cmd>keepjumps normal! Nzz<CR>", { noremap = true, silent = true }) -- Exclude from polluting jumplist
+vim.keymap.set("n", "<C-d>", "<C-d>zz", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-o>", "<C-o>zz", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-i>", "<C-i>zz", { noremap = true, silent = true })
+vim.keymap.set("n", "[c", "[czz", { noremap = true, silent = true })
+vim.keymap.set("n", "]c", "]czz", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>gU", "<cmd>GitBlameOpenCommitURL<CR>", { desc = "Open commit URL" })
 vim.keymap.del("n", "<S-h>")
 vim.keymap.del("n", "<S-l>")
 
@@ -137,13 +137,20 @@ function copy_paths_to_clipboard()
 
   -- Calculate the relative path for Python imports
   local cwd = vim.fn.getcwd()
+  local current_line = vim.fn.line(".")
   local relative_path = modify(filepath, ":.") -- Relative path (CWD)
-  local python_import_path = relative_path:gsub(cwd .. "/", ""):gsub("/", "."):gsub("%.py$", "")
+  local python_import_path
+
+  if filename:sub(-3) == ".py" then
+    python_import_path = relative_path:gsub(cwd .. "/", ""):gsub("/", "."):gsub("%.py$", "")
+  else
+    python_import_path = "The file is not a Python file, can't copy Python import path"
+  end
 
   -- Results to show in the selection menu
   local results = {
     python_import_path, -- 1: Python import path
-    relative_path, -- 2: Relative path (CWD)
+    relative_path .. ":" .. current_line, -- 2: Relative path + line
     filename, -- 3: Filename
     modify(filename, ":r"), -- 4: Filename without extension
     filepath, -- 5: Absolute path
@@ -163,6 +170,10 @@ function copy_paths_to_clipboard()
       local i = tonumber(choice:sub(1, 1))
       if i then
         local result = results[i]
+        if i == 1 and filename:sub(-3) ~= ".py" then
+          vim.notify("Cannot copy Python import path: Not a Python file", vim.log.levels.WARN)
+          return
+        end
         vim.fn.setreg("+", result) -- Copy to clipboard
         vim.notify("Copied: " .. result)
       else
