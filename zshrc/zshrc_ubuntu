@@ -133,7 +133,6 @@ RPROMPT='%{$fg[yellow]%}[%*] '
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# ALIASES
 # Alias for Ubuntu's apt
 alias ud='sudo apt update'
 alias ug='sudo apt upgrade'
