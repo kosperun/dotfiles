@@ -55,15 +55,15 @@ return {
         desc = "Extract Block",
         expr = true,
       },
-      {
-        "<leader>rf",
-        function()
-          return require("refactoring").refactor("Extract Block To File")
-        end,
-        mode = { "n", "x" },
-        desc = "Extract Block To File",
-        expr = true,
-      },
+      -- {
+      --   "<leader>rf",
+      --   function()
+      --     return require("refactoring").refactor("Extract Block To File")
+      --   end,
+      --   mode = { "n", "x" },
+      --   desc = "Extract Block To File",
+      --   expr = true,
+      -- },
       {
         "<leader>rP",
         function()

@@ -3,6 +3,13 @@ return {
   "folke/snacks.nvim",
   keys = {
     {
+      "<leader>sr",
+      function()
+        Snacks.picker.resume()
+      end,
+      desc = "Resume",
+    },
+    {
       "<leader>j",
       function()
         Snacks.picker.buffers({

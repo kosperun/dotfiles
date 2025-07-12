@@ -14,6 +14,8 @@ vim.keymap.set("n", "]c", "]czz", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>gU", "<cmd>GitBlameOpenCommitURL<CR>", { desc = "Open commit URL" })
 vim.keymap.del("n", "<S-h>")
 vim.keymap.del("n", "<S-l>")
+-- I remapped this because I need `sr` for `Search Resume` which I use all the time
+vim.keymap.set("n", "<leader>sR", "<cmd>GrugFar<CR>", { desc = "Search and Replace" })
 
 -- ##########################################################################################
 -- COPY BUFFERS INTO SPLIT
@@ -75,7 +77,7 @@ function GoToDefinitionInSplit()
     encoding = clients[1].offset_encoding
   end
 
-  local params = vim.lsp.util.make_position_params(encoding)
+  local params = vim.lsp.util.make_position_params(nil, encoding)
 
   -- Custom handler for split
   local function handler(_, result, ctx, _)
@@ -95,7 +97,7 @@ function GoToDefinitionInSplit()
 end
 
 vim.keymap.set("n", "ga", GoToDefinitionInSplit, {
-  desc = "Go to definition in existing split (no warnings)",
+  desc = "Go to definition in existing split",
   silent = true,
 })
 -- ##########################################################################################
