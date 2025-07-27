@@ -15,7 +15,7 @@ return {
         color = "info",
         alt = { "tech debt", "TECH DEBT", "TECHDEBT", "techdebt", "Tech Debt", "Tech debt" },
       },
-      NOTE = { icon = " ", color = "hint", alt = { "INFO", "note", "Note" } },
+      NOTE = { icon = " ", color = "hint", alt = { "INFO", "note:", "Note:" } },
     },
     highlight = {
       pattern = [[.*<(KEYWORDS)\s*]], -- pattern or table of patterns, used for highlighting (vim regex)
