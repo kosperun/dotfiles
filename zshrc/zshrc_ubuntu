@@ -256,7 +256,7 @@ alias ji='__zoxide_zi'
 # For zsh-z
 zstyle ':completion:*' menu select
 # zsh completion
-# autoload -U compinit && compinit -i
+autoload -U compinit && compinit -i
 
 ########
 # NVIM #
@@ -271,6 +271,10 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+# Prevent compdump from rewriting the cache every single shell launch.
+# zstyle ':compinit' cache-path "$HOME/.zcompdump"
+# autoload -U compinit
+# compinit -C -i
 ###############################################################################
 # CUSTOM PLUGINS CONFIGS
 ###############################################################################
