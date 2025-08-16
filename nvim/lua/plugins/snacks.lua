@@ -66,9 +66,48 @@ return {
           truncate = 300,
         },
       },
+
       actions = {
+        toggle_sort_by_path = function(p)
+          local opts = p.opts
+          opts.args = opts.args or {}
+
+          -- Find the index of '--' if it exists
+          local dashdash_index = nil
+          for i, arg in ipairs(opts.args) do
+            if arg == "--" then
+              dashdash_index = i
+              break
+            end
+          end
+
+          -- Check if '--sort path' already present
+          local has_sort = false
+          for i = 1, #opts.args - 1 do
+            if opts.args[i] == "--sort" and opts.args[i + 1] == "path" then
+              has_sort = true
+              -- remove it
+              table.remove(opts.args, i + 1)
+              table.remove(opts.args, i)
+              break
+            end
+          end
+
+          -- Insert if not present
+          if not has_sort then
+            if dashdash_index then
+              table.insert(opts.args, dashdash_index, "--sort")
+              table.insert(opts.args, dashdash_index + 1, "path")
+            else
+              table.insert(opts.args, "--sort")
+              table.insert(opts.args, "path")
+            end
+          end
+
+          p:find()
+        end,
         -- Suggested by nyxed https://github.com/LazyVim/LazyVim/discussions/6148#discussioncomment-13474853
-        word_grep = function(p)
+        word_grep_exact = function(p)
           local opts = p.opts
           opts.args = opts.args or {}
 
@@ -111,7 +150,8 @@ return {
       win = {
         input = {
           keys = {
-            ["<c-z>"] = { "word_grep", mode = { "n", "i" } },
+            ["<c-z>"] = { "word_grep_exact", mode = { "n", "i" } },
+            ["<a-o>"] = { "toggle_sort_by_path", mode = { "n", "i" } },
             ["<a-r>"] = { "toggle_regex", mode = { "n", "i" }, desc = "Toggle Regex" },
             ["<a-i>"] = { "toggle_ignorecase", mode = { "n", "i" }, desc = "Toggle Ignore Case" },
           },
