@@ -18,16 +18,53 @@ vim.keymap.del("n", "<S-l>")
 vim.keymap.set("n", "<leader>sR", "<cmd>GrugFar<CR>", { desc = "Search and Replace" })
 
 -- ##########################################################################################
--- COPY BUFFERS INTO SPLIT
+-- SHOW CURRENT BUFFER IN ANOTHER VERTICAL SPLIT
 -- ##########################################################################################
 
-vim.keymap.set("n", "<leader>bl", function()
-  vim.api.nvim_set_current_buf(vim.fn.winbufnr(vim.fn.winnr("l")))
-end, { desc = "Copy buffer from right split (CUSTOM)" })
+function OpenCurrentBufferInSplit()
+  local current_win = vim.api.nvim_get_current_win()
+  local curbuf = vim.api.nvim_get_current_buf()
 
-vim.keymap.set("n", "<leader>bh", function()
-  vim.api.nvim_set_current_buf(vim.fn.winbufnr(vim.fn.winnr("h")))
-end, { desc = "Copy buffer from left split (CUSTOM)" })
+  -- Try to find an existing split
+  local wins = vim.api.nvim_tabpage_list_wins(0)
+  local target_win = nil
+
+  for _, win in ipairs(wins) do
+    if win ~= current_win then
+      target_win = win
+      break
+    end
+  end
+
+  -- Create vsplit if needed
+  if not target_win then
+    vim.cmd("vsplit")
+    target_win = vim.api.nvim_get_current_win()
+    -- go back so we can later jump intentionally
+    vim.api.nvim_set_current_win(current_win)
+  end
+
+  -- Put the current buffer into the target window
+  vim.api.nvim_win_set_buf(target_win, curbuf)
+  -- Move cursor there
+  vim.api.nvim_set_current_win(target_win)
+end
+
+vim.keymap.set("n", "gb", OpenCurrentBufferInSplit, {
+  desc = "Open current buffer in other split (create if needed)",
+  silent = true,
+})
+
+-- ##########################################################################################
+-- This is an old version - copy buffer from the other split into the current window
+-- ##########################################################################################
+-- vim.keymap.set("n", "<leader>bl", function()
+--   vim.api.nvim_set_current_buf(vim.fn.winbufnr(vim.fn.winnr("l")))
+-- end, { desc = "Copy buffer from right split (CUSTOM)" })
+--
+-- vim.keymap.set("n", "<leader>bh", function()
+--   vim.api.nvim_set_current_buf(vim.fn.winbufnr(vim.fn.winnr("h")))
+-- end, { desc = "Copy buffer from left split (CUSTOM)" })
 
 -- ##########################################################################################
 -- SWAP BUFFERS IN SPLIT
