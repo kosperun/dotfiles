@@ -22,36 +22,38 @@ vim.keymap.set("n", "<leader>sR", "<cmd>GrugFar<CR>", { desc = "Search and Repla
 -- ##########################################################################################
 
 function OpenCurrentBufferInSplit()
-  local current_win = vim.api.nvim_get_current_win()
-  local curbuf = vim.api.nvim_get_current_buf()
+  local src_win = vim.api.nvim_get_current_win()
+  local src_buf = vim.api.nvim_get_current_buf()
 
-  -- Try to find an existing split
+  -- Capture exact view (cursor, topline, leftcol, etc.) from the source window
+  local view = vim.api.nvim_win_call(src_win, function()
+    return vim.fn.winsaveview()
+  end)
+
+  -- Find the other window or create a vsplit
   local wins = vim.api.nvim_tabpage_list_wins(0)
-  local target_win = nil
-
-  for _, win in ipairs(wins) do
-    if win ~= current_win then
-      target_win = win
+  local dst_win = nil
+  for _, w in ipairs(wins) do
+    if w ~= src_win then
+      dst_win = w
       break
     end
   end
-
-  -- Create vsplit if needed
-  if not target_win then
+  if not dst_win then
     vim.cmd("vsplit")
-    target_win = vim.api.nvim_get_current_win()
-    -- go back so we can later jump intentionally
-    vim.api.nvim_set_current_win(current_win)
+    dst_win = vim.api.nvim_get_current_win()
+    -- go back so we can set buffer and then intentionally jump
+    vim.api.nvim_set_current_win(src_win)
   end
 
-  -- Put the current buffer into the target window
-  vim.api.nvim_win_set_buf(target_win, curbuf)
-  -- Move cursor there
-  vim.api.nvim_set_current_win(target_win)
+  -- Put the current buffer into the target window and restore the view there
+  vim.api.nvim_win_set_buf(dst_win, src_buf)
+  vim.api.nvim_set_current_win(dst_win)
+  pcall(vim.fn.winrestview, view) -- pcall in case folds/wrap make exact restore impossible
 end
 
 vim.keymap.set("n", "gb", OpenCurrentBufferInSplit, {
-  desc = "Open current buffer in other split (create if needed)",
+  desc = "Open current buffer in other split (CUSTOM)",
   silent = true,
 })
 
