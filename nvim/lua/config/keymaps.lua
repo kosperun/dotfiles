@@ -16,7 +16,9 @@ vim.keymap.del("n", "<S-h>")
 vim.keymap.del("n", "<S-l>")
 -- I remapped this because I need `sr` for `Search Resume` which I use all the time
 vim.keymap.set("n", "<leader>sR", "<cmd>GrugFar<CR>", { desc = "Search and Replace" })
-
+vim.keymap.set("n", "<leader>sf", function()
+  Snacks.picker.files()
+end, { desc = "Find Files (CUSTOM)" })
 -- ##########################################################################################
 -- SHOW CURRENT BUFFER IN ANOTHER VERTICAL SPLIT
 -- ##########################################################################################
