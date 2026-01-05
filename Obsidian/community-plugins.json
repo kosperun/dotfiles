@@ -8,5 +8,7 @@
   "open-as-md",
   "automatic-table-of-contents",
   "meld-encrypt",
-  "hide-folders"
+  "hide-folders",
+  "age-encrypt",
+  "open-in-new-tab"
 ]
