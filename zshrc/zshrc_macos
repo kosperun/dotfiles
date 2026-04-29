@@ -129,6 +129,12 @@ build_prompt() {
 PROMPT='%{%f%b%k%}$(build_prompt) '
 RPROMPT='%{$fg[yellow]%}[%*] '
 
+# HISTORY
+setopt EXTENDED_HISTORY          # Write the history file in the ':start:elapsed;command' format.
+setopt HIST_FIND_NO_DUPS         # Do not display a previously found event.
+setopt HIST_IGNORE_ALL_DUPS      # Delete an old recorded event if a new event is a duplicate.
+setopt HIST_IGNORE_DUPS          # Do not record an event that was just recorded again.
+
 ###############################################################################
 # ALIASES
 ###############################################################################
@@ -275,6 +281,19 @@ export NVM_DIR="$HOME/.nvm"
 # ITERM2 #
 ##########
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=243' # Needed for iTerm2 bc for some reason it shows autosuggestions as black on black bg.
+
+###########
+# TMUX    #
+###########
+export DISABLE_AUTO_TITLE='true'
+alias tmux='tmux attach -t main 2>/dev/null || tmux new-session -s main'
+
+###############################################################################
+# MacOS Things
+###############################################################################
+ssh-add --apple-load-keychain -q
+export PATH="/opt/homebrew/opt/icu4c@78/bin:$PATH"
+export PATH="/opt/homebrew/opt/icu4c@78/sbin:$PATH"
 
 ###############################################################################
 # WORK

@@ -121,6 +121,12 @@ build_prompt() {
 PROMPT='%{%f%b%k%}$(build_prompt) '
 RPROMPT='%{$fg[yellow]%}[%*] '
 
+# HISTORY
+setopt EXTENDED_HISTORY          # Write the history file in the ':start:elapsed;command' format.
+setopt HIST_FIND_NO_DUPS         # Do not display a previously found event.
+setopt HIST_IGNORE_ALL_DUPS      # Delete an old recorded event if a new event is a duplicate.
+setopt HIST_IGNORE_DUPS          # Do not record an event that was just recorded again.
+
 ###############################################################################
 # ALIASES
 ###############################################################################
@@ -182,6 +188,7 @@ alias up="uptime"
 alias python='python3'
 alias de='deactivate'
 alias py='ipython'
+alias act='source venv/bin/activate'
 
 ### Poetry specific aliases
 pa() {
@@ -275,6 +282,12 @@ export NVM_DIR="$HOME/.nvm"
 # zstyle ':compinit' cache-path "$HOME/.zcompdump"
 # autoload -U compinit
 # compinit -C -i
+###########
+# TMUX    #
+###########
+export DISABLE_AUTO_TITLE='true'
+alias tmux='tmux attach -t main 2>/dev/null || tmux new-session -s main'
+
 ###############################################################################
 # CUSTOM PLUGINS CONFIGS
 ###############################################################################

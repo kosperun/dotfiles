@@ -121,6 +121,12 @@ build_prompt() {
 PROMPT='%{%f%b%k%}$(build_prompt) '
 RPROMPT='%{$fg[yellow]%}[%*] '
 
+# HISTORY
+setopt EXTENDED_HISTORY          # Write the history file in the ':start:elapsed;command' format.
+setopt HIST_FIND_NO_DUPS         # Do not display a previously found event.
+setopt HIST_IGNORE_ALL_DUPS      # Delete an old recorded event if a new event is a duplicate.
+setopt HIST_IGNORE_DUPS          # Do not record an event that was just recorded again.
+
 ###############################################################################
 # ALIASES
 ###############################################################################
@@ -171,6 +177,7 @@ alias rb="sudo reboot"
 alias python='python3'
 alias de='deactivate'
 alias py='ipython'
+alias act='source venv/bin/activate'
 
 ### Poetry specific aliases
 pa() {
@@ -265,6 +272,12 @@ alias nvim-kickstart-modular='NVIM_APPNAME=nvim-kickstart-modular nvim'
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+###########
+# TMUX    #
+###########
+export DISABLE_AUTO_TITLE='true'
+alias tmux='tmux attach -t main 2>/dev/null || tmux new-session -s main'
 
 ###############################################################################
 # CUSTOM PLUGINS CONFIGS
