@@ -8,6 +8,8 @@ vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = "#928374" })
 vim.api.nvim_set_hl(0, "SnacksPickerPathHidden", { fg = "#928374" })
 vim.api.nvim_set_hl(0, "SnacksPickerPathIgnored", { fg = "#928374" })
 
+vim.g.root_lsp_ignore = { "copilot", "terraformls", "tflint" }
+
 vim.g.python3_host_prog = "~/venvs/.nvim-venv/bin/python"
 vim.g.python_host_prog = "~/.venvs/.nvim-venv/bin/python"
 vim.g.wordmotion_prefix = "\\"

@@ -59,6 +59,9 @@ return {
     scroll = { enabled = false },
     statuscolumn = { enabled = false },
     picker = {
+      sources = {
+        grep = { regex = false },
+      },
       matcher = { frecency = true, history_bonus = true },
       formatters = {
         file = {
