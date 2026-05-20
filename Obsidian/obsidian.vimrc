@@ -4,6 +4,13 @@
 nmap j gj
 nmap k gk
 
+" Smarter o and O (inserting prefix for markdown lists)
+exmap blankBelow obcommand obsidian-editor-shortcuts:insertLineBelow
+exmap blankAbove obcommand obsidian-editor-shortcuts:insertLineAbove
+nmap o :blankBelow<CR>i
+nmap O :blankAbove<CR>i
+
+
 " https://notes.bauer.codes/Obsidian#Obsidian+vim+window+controls
 
 exmap focusRight obcommand editor:focus-right
@@ -36,10 +43,35 @@ set clipboard=unnamed
 
 " Go back and forward with Ctrl+O and Ctrl+I
 " (make sure to remove default Obsidian shortcuts for these to work)
-" exmap back obcommand app:go-back
-" nmap <C-o> :back
-" exmap forward obcommand app:go-forward
-" nmap <C-i> :forward
+exmap back obcommand app:go-back
+nmap <C-o> :back<CR>
+exmap forward obcommand app:go-forward
+nmap <C-i> :forward<CR>
+
+exmap reveal obcommand file-explorer:reveal-active-file
+exmap editor obcommand editor:focus
+
+nmap <C-h> :reveal<CR>
+nmap <C-l> :editor<CR>
+
+" Commands that use leader (Space)
+unmap <Space>
+exmap toggle_left_sidebar obcommand app:toggle-left-sidebar
+nmap <Space>e :toggle_left_sidebar<CR>
+
+exmap close_pane obcommand workspace:close
+nmap <Space>bd :close_pane<CR>
+
+" Map 'za' to toggle current fold
+exmap togglefold obcommand editor:toggle-fold
+nmap za :togglefold<CR>
+
+" Map 'zR' to unfold all and 'zM' to fold all
+exmap unfoldall obcommand editor:unfold-all
+nmap zR :unfoldall<CR>
+
+exmap foldall obcommand editor:fold-all
+nmap zM :foldall<CR>
 
 " Surround 
 exmap surround_wiki surround [[ ]]

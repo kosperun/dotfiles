@@ -1,14 +1,17 @@
 [
+  "age-encrypt",
+  "automatic-table-of-contents",
+  "hide-folders",
+  "meld-encrypt",
+  "mermaid-tools",
+  "obsidian-editor-shortcuts",
+  "obsidian-emoji-toolbar",
   "obsidian-icon-folder",
   "obsidian-icons-plugin",
   "obsidian-relative-line-numbers",
+  "obsidian-timestamper",
   "obsidian-vimrc-support",
-  "mermaid-tools",
-  "obsidian-emoji-toolbar",
   "open-as-md",
-  "automatic-table-of-contents",
-  "meld-encrypt",
-  "hide-folders",
-  "age-encrypt",
-  "open-in-new-tab"
+  "open-in-new-tab",
+  "sansconverter"
 ]

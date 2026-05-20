@@ -42,22 +42,6 @@
       "key": "K"
     }
   ],
-  "workspace:split-horizontal": [
-    {
-      "modifiers": [
-        "Ctrl"
-      ],
-      "key": "W"
-    }
-  ],
-  "workspace:split-vertical": [
-    {
-      "modifiers": [
-        "Ctrl"
-      ],
-      "key": "V"
-    }
-  ],
   "window:zoom-in": [
     {
       "modifiers": [
@@ -98,6 +82,31 @@
         "Mod"
       ],
       "key": " "
+    }
+  ],
+  "file-explorer:move-file": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "M"
+    }
+  ],
+  "editor:open-search-replace": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "F"
+    }
+  ],
+  "editor:open-search": [
+    {
+      "modifiers": [
+        "Alt",
+        "Mod"
+      ],
+      "key": "F"
     }
   ]
 }
