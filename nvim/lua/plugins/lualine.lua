@@ -1,5 +1,8 @@
+local is_diff = vim.tbl_contains(vim.v.argv, "-d") or vim.tbl_contains(vim.v.argv, "--diff")
+
 return {
   "nvim-lualine/lualine.nvim",
+  enabled = not is_diff,
   event = "VeryLazy",
   init = function()
     vim.g.lualine_laststatus = vim.o.laststatus

@@ -1,6 +1,22 @@
+local is_diff = vim.tbl_contains(vim.v.argv, "-d") or vim.tbl_contains(vim.v.argv, "--diff")
+
 return {
   "luukvbaal/statuscol.nvim",
   config = function()
+    if is_diff then
+      require("statuscol").setup({
+        setopt = true,
+        segments = {
+          {
+            text = { "%l", " " },
+            condition = { true },
+            click = "v:lua.ScLa",
+          },
+        },
+      })
+      return
+    end
+
     -- Custom function to show both absolute and relative line numbers
     local function lnum_both(args)
       return string.format("%3d %2d", args.lnum, args.relnum)
