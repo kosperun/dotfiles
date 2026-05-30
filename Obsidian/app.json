@@ -1,8 +1,17 @@
 {
-  "vimMode": true,
+  "readableLineLength": false,
   "showLineNumber": true,
+  "vimMode": true,
+  "useMarkdownLinks": false,
   "promptDelete": false,
-  "useMarkdownLinks": true,
-  "attachmentFolderPath": "Attachments",
-  "readableLineLength": false
+  "alwaysUpdateLinks": true,
+  "pdfExportSettings": {
+    "includeName": true,
+    "pageSize": "Letter",
+    "landscape": false,
+    "margin": "0",
+    "downscalePercent": 100
+  },
+  "strictLineBreaks": true,
+  "showUnsupportedFiles": true
 }
