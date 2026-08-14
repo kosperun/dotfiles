@@ -1,0 +1,363 @@
+# If you come from bash you might have to change your $PATH.
+
+########################
+#### PATH additions ####
+########################
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH="/usr/local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+# Cargo is required for NeoVim
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH=$HOME/.nvm/versions/node/v20.11.0/bin:$PATH
+# export PATH="/Applications/PyCharm.app/Contents/MacOS:$PATH"
+# Add poetry directory to PATH to invoke it as 'poetry'
+# export PATH="$HOME/.poetry/bin:$PATH"
+
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="agnoster"
+
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in $ZSH/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+
+# Uncomment the following line to change how often to auto-update (in days).
+# zstyle ':omz:update' frequency 13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(zsh-z zsh-history-substring-search zsh-fzf-history-search copybuffer colored-man-pages autoupdate)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# export EDITOR=vim
+
+# Enable vi mode
+# bindkey -v
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+###############################################################################
+# PROMPT
+###############################################################################
+## Main prompt
+build_prompt() {
+  RETVAL=$?
+  prompt_status
+  prompt_virtualenv
+  prompt_aws
+  prompt_dir
+  prompt_git
+  prompt_bzr
+  prompt_hg
+  prompt_end
+}
+
+PROMPT='%{%f%b%k%}$(build_prompt) '
+RPROMPT='%{$fg[yellow]%}[%*] '
+
+# HISTORY
+setopt EXTENDED_HISTORY          # Write the history file in the ':start:elapsed;command' format.
+# setopt HIST_EXPIRE_DUPS_FIRST    # Expire a duplicate event first when trimming history.
+setopt HIST_FIND_NO_DUPS         # Do not display a previously found event.
+setopt HIST_IGNORE_ALL_DUPS      # Delete an old recorded event if a new event is a duplicate.
+setopt HIST_IGNORE_DUPS          # Do not record an event that was just recorded again.
+# setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
+# setopt SHARE_HISTORY             # Share history between all sessions.
+
+###############################################################################
+# ALIASES
+###############################################################################
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Git aliases
+alias ga="git add"
+alias gaa="git add --all"
+alias gau="git add -u"
+alias gc="git commit -m"
+alias pull="git pull"
+alias push="git push"
+alias ch="git checkout"
+alias gb="git branch"
+alias gd="git difftool"
+alias gl="git log"
+alias rf="git reflog"
+alias gs="git status"
+alias gr="git restore"
+alias gcfd="git clean -fd"
+alias gsl="git stash list"
+alias gss="git stash save"
+alias gsa="git stash apply"
+alias gsp="git stash pop"
+alias gsP="git stash push"
+alias gcv="git cherry -v"
+alias grs="git reset"
+alias gm="git merge"
+alias gmt="git mergetool"
+
+# alias to show a timestamp next to commands in history
+alias h="history -i"
+alias hg="history -i | grep"
+alias hs="history -i | grep"
+
+# Alias for uptime
+alias up="uptime"
+# # alias for reboot
+# alias rb="sudo reboot"
+
+### Python and Django aliases
+# alias python='python3'
+alias py='ipython'
+alias de='deactivate'
+alias act='source venv/bin/activate'
+
+### Poetry specific aliases
+pa() {
+  source "$(poetry env info --path)/bin/activate"
+}
+# alias ps='poetry shell'
+# alias pm='manage'
+# alias mm='manage makemigrations'
+# alias mg='manage migrate'
+# alias rs='manage runserver'
+
+# Alias for web-search plugin
+# alias goo='web_search google'
+# alias yt='web_search duckduckgo \!yt'
+# alias so='web_search stackoverflow'
+
+###############################################################################
+# OMZ PLUGINS CONFIGS                                                         #
+###############################################################################
+
+###########
+# Thefuck #
+###########
+# # Changing the default f**k word to something more pleasant
+# eval $(thefuck --alias)
+# # You can use whatever you want as an alias, like for Mondays:
+# eval $(thefuck --alias omg)
+
+###############################################################################
+# APPS CONFIGS
+###############################################################################
+
+#######
+# FZF #
+#######
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# To use fd with fzf (https://github.com/sharkdp/fd#using-fd-with-fzf)
+export FZF_DEFAULT_COMMAND='fd --type file'
+
+# This is to not store fzf rg results in history
+HISTORY_IGNORE='(rg *)'
+zshaddhistory() {
+  emulate -L zsh
+  [[ $1 != ${~HISTORY_IGNORE} ]]
+}
+
+#########
+# PYENV #
+#########
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+# if command -v pyenv 1>/dev/null 2>&1; then
+#   eval "$(pyenv init -)"
+# fi
+
+##########
+# STRIPE #
+##########
+# stripe completion
+# fpath=(~/.stripe $fpath)
+
+##################
+# ZOXIDE & ZSH-Z #
+##################
+eval "$(zoxide init zsh --no-cmd)"
+alias j='__zoxide_z'
+alias ji='__zoxide_zi'
+
+#########
+# ZSH-Z #
+#########
+# For zsh-z
+zstyle ':completion:*' menu select
+# zsh completion
+# autoload -U compinit && compinit -i
+
+########
+# NVIM #
+########
+alias nvim-kickstart='NVIM_APPNAME="nvim-kickstart" nvim'
+alias nvim-kickstart-modular='NVIM_APPNAME=nvim-kickstart-modular nvim'
+
+########
+# NVM #
+########
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+##########
+# YAZI   #
+##########
+alias y="yazi"
+
+###########
+# TMUXP   #
+###########
+export DISABLE_AUTO_TITLE='true'
+alias tmux='tmux attach -t main 2>/dev/null || tmux new-session -s main'
+
+###############################################################################
+# WORK
+###############################################################################
+# NEUROFLOW
+source ~/Neuroflow/infrastructure/utilities/assume-role
+source ~/Neuroflow/infrastructure/utilities/bastion-connect
+
+###############################################################################
+# CUSTOM PLUGINS CONFIGS
+###############################################################################
+# Bind keys for zsh-history-substring-search
+bindkey '^[OA' history-substring-search-up
+bindkey '^[OB' history-substring-search-down
+bindkey -M emacs '^P' history-substring-search-up
+bindkey -M emacs '^N' history-substring-search-down
+
+source ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.oh-my-zsh/custom/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+###############################################################################
+# OS-SPECIFIC
+###############################################################################
+case "$(uname)" in
+  Darwin)
+    ##########
+    # ITERM2 #
+    ##########
+    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=243' # Needed for iTerm2 bc for some reason it shows autosuggestions as black on black bg.
+
+    ssh-add --apple-load-keychain -q
+    export PATH=/Library/PostgreSQL/17/bin:$PATH
+    export PATH="$PATH:/Applications/WezTerm.app/Contents/MacOS"
+    export PATH="/opt/homebrew/opt/icu4c@78/bin:$PATH"
+    export PATH="/opt/homebrew/opt/icu4c@78/sbin:$PATH"
+    export POETRY_VERSION=2.2.1
+    export PATH="$HOME/bin:$PATH"
+    ;;
+  Linux)
+    ENABLE_CORRECTION="true"
+
+    # Alias for reboot
+    alias rb="sudo reboot"
+
+    # Alias for web-search plugin
+    alias goo='web_search google'
+    alias yt='web_search duckduckgo \!yt'
+    alias so='web_search stackoverflow'
+
+    alias python='python3'
+
+    if [ -f /etc/arch-release ]; then
+      # For fzf on Arch
+      source /usr/share/fzf/key-bindings.zsh
+      source /usr/share/fzf/completion.zsh
+    elif [ -f /etc/os-release ] && grep -qi ubuntu /etc/os-release; then
+      # Alias for Ubuntu's apt
+      alias ud='sudo apt update'
+      alias ug='sudo apt upgrade'
+      alias inst='sudo apt install'
+      alias auto='sudo apt autoremove'
+
+      # For fzf on Ubuntu
+      source /usr/share/doc/fzf/examples/key-bindings.zsh
+      source /usr/share/doc/fzf/examples/completion.zsh
+
+      # zsh completion
+      autoload -U compinit && compinit -i
+    fi
+    ;;
+esac
