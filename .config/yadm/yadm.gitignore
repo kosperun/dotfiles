@@ -1,0 +1,19 @@
+gitignore
+# Obsidian — universal exclusions across all vaults
+Documents/My Documents (Notes)/*/.obsidian/appearance.json
+Documents/My Documents (Notes)/*/.obsidian/workspace.json
+Documents/My Documents (Notes)/*/.DS_Store
+Documents/My Documents (Notes)/*/.obsidian/.DS_Store
+
+# Obsidian — Personal vault only
+Documents/My Documents (Notes)/Personal/.obsidian/icons/
+Documents/My Documents (Notes)/Personal/.obsidian/workspace-mobile.json
+Documents/My Documents (Notes)/Personal/.obsidian/core-plugins-migration.json
+Documents/My Documents (Notes)/Personal/.obsidian/graph.json
+Documents/My Documents (Notes)/Personal/.obsidian/plugins/obsidian-excalidraw-plugin/
+Documents/My Documents (Notes)/Personal/.obsidian/plugins/obsidian-plugin-toc/
+Documents/My Documents (Notes)/Personal/.obsidian/plugins/hide-folders/data.json
+Documents/My Documents (Notes)/Personal/.stfolder/
+Documents/My Documents (Notes)/Personal/.trash/
+Documents/My Documents (Notes)/Personal/Thumbs.db
+Documents/My Documents (Notes)/Personal/.smart-env
