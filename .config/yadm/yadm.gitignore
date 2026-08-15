@@ -1,3 +1,4 @@
+gitignore
 # Obsidian — universal exclusions across all vaults
 Documents/My Documents (Notes)/*/.obsidian/appearance.json
 Documents/My Documents (Notes)/*/.obsidian/workspace.json
