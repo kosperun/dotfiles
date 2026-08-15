@@ -9,6 +9,7 @@ export PATH="$HOME/.local/bin:$PATH"
 # Cargo is required for NeoVim
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH=$HOME/.nvm/versions/node/v20.11.0/bin:$PATH
+# export PATH="/Applications/PyCharm.app/Contents/MacOS:$PATH"
 # Add poetry directory to PATH to invoke it as 'poetry'
 # export PATH="$HOME/.poetry/bin:$PATH"
 
@@ -52,7 +53,7 @@ ZSH_THEME="agnoster"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+# ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # You can also set it to another string to have that shown instead of the default red dots.
@@ -99,11 +100,16 @@ source $ZSH/oh-my-zsh.sh
 #   export EDITOR='mvim'
 # fi
 
+# export EDITOR=vim
+
+# Enable vi mode
+# bindkey -v
+
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
 ###############################################################################
-# PROMPT 
+# PROMPT
 ###############################################################################
 ## Main prompt
 build_prompt() {
@@ -123,9 +129,12 @@ RPROMPT='%{$fg[yellow]%}[%*] '
 
 # HISTORY
 setopt EXTENDED_HISTORY          # Write the history file in the ':start:elapsed;command' format.
+# setopt HIST_EXPIRE_DUPS_FIRST    # Expire a duplicate event first when trimming history.
 setopt HIST_FIND_NO_DUPS         # Do not display a previously found event.
 setopt HIST_IGNORE_ALL_DUPS      # Delete an old recorded event if a new event is a duplicate.
 setopt HIST_IGNORE_DUPS          # Do not record an event that was just recorded again.
+# setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
+# setopt SHARE_HISTORY             # Share history between all sessions.
 
 ###############################################################################
 # ALIASES
@@ -138,19 +147,6 @@ setopt HIST_IGNORE_DUPS          # Do not record an event that was just recorded
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# Alias for Ubuntu's apt
-alias ud='sudo apt update'
-alias ug='sudo apt upgrade'
-alias inst='sudo apt install'
-alias auto='sudo apt autoremove'
-# alias for reboot
-alias rb="sudo reboot"
-
-# Alias for web-search plugin 
-alias goo='web_search google'
-alias yt='web_search duckduckgo \!yt'
-alias so='web_search stackoverflow'
 
 # Git aliases
 alias ga="git add"
@@ -175,6 +171,7 @@ alias gsP="git stash push"
 alias gcv="git cherry -v"
 alias grs="git reset"
 alias gm="git merge"
+alias gmt="git mergetool"
 
 # alias to show a timestamp next to commands in history
 alias h="history -i"
@@ -183,11 +180,13 @@ alias hs="history -i | grep"
 
 # Alias for uptime
 alias up="uptime"
+# # alias for reboot
+# alias rb="sudo reboot"
 
 ### Python and Django aliases
-alias python='python3'
-alias de='deactivate'
+# alias python='python3'
 alias py='ipython'
+alias de='deactivate'
 alias act='source venv/bin/activate'
 
 ### Poetry specific aliases
@@ -199,6 +198,11 @@ pa() {
 # alias mm='manage makemigrations'
 # alias mg='manage migrate'
 # alias rs='manage runserver'
+
+# Alias for web-search plugin
+# alias goo='web_search google'
+# alias yt='web_search duckduckgo \!yt'
+# alias so='web_search stackoverflow'
 
 ###############################################################################
 # OMZ PLUGINS CONFIGS                                                         #
@@ -219,9 +223,6 @@ pa() {
 #######
 # FZF #
 #######
-# For fzf in Linux
-source /usr/share/doc/fzf/examples/key-bindings.zsh
-source /usr/share/doc/fzf/examples/completion.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # To use fd with fzf (https://github.com/sharkdp/fd#using-fd-with-fzf)
 export FZF_DEFAULT_COMMAND='fd --type file'
@@ -263,7 +264,7 @@ alias ji='__zoxide_zi'
 # For zsh-z
 zstyle ':completion:*' menu select
 # zsh completion
-autoload -U compinit && compinit -i
+# autoload -U compinit && compinit -i
 
 ########
 # NVIM #
@@ -278,15 +279,23 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# Prevent compdump from rewriting the cache every single shell launch.
-# zstyle ':compinit' cache-path "$HOME/.zcompdump"
-# autoload -U compinit
-# compinit -C -i
+##########
+# YAZI   #
+##########
+alias y="yazi"
+
 ###########
-# TMUX    #
+# TMUXP   #
 ###########
 export DISABLE_AUTO_TITLE='true'
 alias tmux='tmux attach -t main 2>/dev/null || tmux new-session -s main'
+
+###############################################################################
+# WORK
+###############################################################################
+# NEUROFLOW
+source ~/Neuroflow/infrastructure/utilities/assume-role
+source ~/Neuroflow/infrastructure/utilities/bastion-connect
 
 ###############################################################################
 # CUSTOM PLUGINS CONFIGS
@@ -301,3 +310,54 @@ source ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.plugi
 source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.oh-my-zsh/custom/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 
+###############################################################################
+# OS-SPECIFIC
+###############################################################################
+case "$(uname)" in
+  Darwin)
+    ##########
+    # ITERM2 #
+    ##########
+    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=243' # Needed for iTerm2 bc for some reason it shows autosuggestions as black on black bg.
+
+    ssh-add --apple-load-keychain -q
+    export PATH=/Library/PostgreSQL/17/bin:$PATH
+    export PATH="$PATH:/Applications/WezTerm.app/Contents/MacOS"
+    export PATH="/opt/homebrew/opt/icu4c@78/bin:$PATH"
+    export PATH="/opt/homebrew/opt/icu4c@78/sbin:$PATH"
+    export POETRY_VERSION=2.2.1
+    export PATH="$HOME/bin:$PATH"
+    ;;
+  Linux)
+    ENABLE_CORRECTION="true"
+
+    # Alias for reboot
+    alias rb="sudo reboot"
+
+    # Alias for web-search plugin
+    alias goo='web_search google'
+    alias yt='web_search duckduckgo \!yt'
+    alias so='web_search stackoverflow'
+
+    alias python='python3'
+
+    if [ -f /etc/arch-release ]; then
+      # For fzf on Arch
+      source /usr/share/fzf/key-bindings.zsh
+      source /usr/share/fzf/completion.zsh
+    elif [ -f /etc/os-release ] && grep -qi ubuntu /etc/os-release; then
+      # Alias for Ubuntu's apt
+      alias ud='sudo apt update'
+      alias ug='sudo apt upgrade'
+      alias inst='sudo apt install'
+      alias auto='sudo apt autoremove'
+
+      # For fzf on Ubuntu
+      source /usr/share/doc/fzf/examples/key-bindings.zsh
+      source /usr/share/doc/fzf/examples/completion.zsh
+
+      # zsh completion
+      autoload -U compinit && compinit -i
+    fi
+    ;;
+esac
