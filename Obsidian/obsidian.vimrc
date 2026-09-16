@@ -4,6 +4,10 @@
 nmap j gj
 nmap k gk
 
+" Have gl/gL create a blank line at the visual line boundary
+nmap gl g$a<CR><Esc>O
+nmap gL g0i<CR><Esc>O
+
 " Smarter o and O (inserting prefix for markdown lists)
 exmap blankBelow obcommand obsidian-editor-shortcuts:insertLineBelow
 exmap blankAbove obcommand obsidian-editor-shortcuts:insertLineAbove

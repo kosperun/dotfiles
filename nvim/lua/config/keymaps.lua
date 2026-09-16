@@ -14,6 +14,20 @@ vim.keymap.set("n", "]c", "]czz", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>gU", "<cmd>GitBlameOpenCommitURL<CR>", { desc = "Open commit URL" })
 vim.keymap.del("n", "<S-h>")
 vim.keymap.del("n", "<S-l>")
+
+vim.keymap.set(
+  "n",
+  "gl",
+  "g$a<CR><Esc>O",
+  { noremap = true, silent = true, desc = "Add new visual line below in wrapped lines (CUSTOM)" }
+)
+vim.keymap.set(
+  "n",
+  "gL",
+  "g0i<CR><Esc>O",
+  { noremap = true, silent = true, desc = "Add new visual line above in wrapped lines (CUSTOM)" }
+)
+
 -- I remapped this because I need `sr` for `Search Resume` which I use all the time
 vim.keymap.set("n", "<leader>sR", "<cmd>GrugFar<CR>", { desc = "Search and Replace" })
 vim.keymap.set("n", "<leader>sf", function()
