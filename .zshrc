@@ -4,11 +4,11 @@
 #### PATH additions ####
 ########################
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+typeset -U path
 export PATH="/usr/local/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 # Cargo is required for NeoVim
 export PATH="$HOME/.cargo/bin:$PATH"
-export PATH=$HOME/.nvm/versions/node/v20.11.0/bin:$PATH
 # export PATH="/Applications/PyCharm.app/Contents/MacOS:$PATH"
 # Add poetry directory to PATH to invoke it as 'poetry'
 # export PATH="$HOME/.poetry/bin:$PATH"
@@ -293,9 +293,7 @@ alias tmux='tmux attach -t main 2>/dev/null || tmux new-session -s main'
 ###############################################################################
 # WORK
 ###############################################################################
-# NEUROFLOW
-source ~/Neuroflow/infrastructure/utilities/assume-role
-source ~/Neuroflow/infrastructure/utilities/bastion-connect
+
 
 ###############################################################################
 # CUSTOM PLUGINS CONFIGS
@@ -325,7 +323,6 @@ case "$(uname)" in
     export PATH="$PATH:/Applications/WezTerm.app/Contents/MacOS"
     export PATH="/opt/homebrew/opt/icu4c@78/bin:$PATH"
     export PATH="/opt/homebrew/opt/icu4c@78/sbin:$PATH"
-    export POETRY_VERSION=2.2.1
     export PATH="$HOME/bin:$PATH"
     ;;
   Linux)
@@ -361,3 +358,6 @@ case "$(uname)" in
     fi
     ;;
 esac
+
+setopt IGNORE_EOF
+
