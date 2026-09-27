@@ -1,0 +1,19 @@
+{
+  "schemes" : [
+    {
+      "pointer" : {
+        "acceleration" : 16.9822
+      },
+      "if" : {
+        "device" : {
+          "productName" : "",
+          "productID" : "0x269",
+          "vendorID" : "0x4c",
+          "serialNumber" : "BC:D0:74:C3:21:E8",
+          "category" : "mouse"
+        }
+      }
+    }
+  ],
+  "$schema" : "https:\/\/schema.linearmouse.app\/0.10.0"
+}
