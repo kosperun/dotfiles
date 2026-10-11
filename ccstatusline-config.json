@@ -1,0 +1,103 @@
+{
+  "version": 4,
+  "lines": [
+    [
+      {
+        "id": "1",
+        "type": "model",
+        "color": "cyan"
+      },
+      {
+        "id": "5",
+        "type": "current-working-dir",
+        "color": "magenta"
+      },
+      {
+        "id": "7",
+        "type": "git-branch",
+        "color": "yellow"
+      }
+    ],
+    [
+      {
+        "id": "ef43a060-4850-4a67-a7c9-cbb702070ef0",
+        "type": "tokens-total",
+        "backgroundColor": "bgYellow"
+      },
+      {
+        "id": "3756a9d7-69f1-4ac6-a643-fcc473e42d16",
+        "type": "context-length",
+        "backgroundColor": "bgBrightCyan"
+      },
+      {
+        "id": "7b4831ce-956b-4fbb-85ba-505d4713c155",
+        "type": "context-percentage",
+        "backgroundColor": "bgWhite"
+      },
+      {
+        "id": "94b49770-a175-46e6-9ba8-0b874782b4d3",
+        "type": "context-window",
+        "backgroundColor": "bgBrightMagenta"
+      }
+    ],
+    [
+      {
+        "id": "76c627e5-98ee-4b6a-98b7-b1e9b9f4519b",
+        "type": "session-clock",
+        "backgroundColor": "bgBrightCyan"
+      },
+      {
+        "id": "45526304-7383-406f-9ab0-14b90e828322",
+        "type": "reset-timer",
+        "backgroundColor": "bgGreen"
+      },
+      {
+        "id": "69d46602-0328-474c-9b80-c52d68c72437",
+        "type": "session-cost",
+        "backgroundColor": "bgBrightMagenta"
+      },
+      {
+        "id": "8b695e51-e9d9-4d78-9efa-6aab52d4cb2d",
+        "type": "extra-usage-used",
+        "backgroundColor": "bgBrightGreen"
+      },
+      {
+        "id": "7e71eaf5-50d9-414a-956e-f00837995218",
+        "type": "extra-usage-utilization",
+        "backgroundColor": "bgBlue"
+      }
+    ]
+  ],
+  "flexMode": "full",
+  "compactThreshold": 60,
+  "colorLevel": 2,
+  "defaultPadding": " ",
+  "defaultPaddingSide": "both",
+  "inheritSeparatorColors": false,
+  "globalBold": false,
+  "gitCacheTtlSeconds": 5,
+  "terminalWidthCacheTtlSeconds": 5,
+  "customCommandCacheTtlSeconds": 0,
+  "minimalistMode": false,
+  "powerline": {
+    "enabled": true,
+    "separators": [
+      ""
+    ],
+    "separatorInvertBackground": [
+      false
+    ],
+    "startCaps": [],
+    "endCaps": [
+      ""
+    ],
+    "theme": "gruvbox",
+    "autoAlign": false,
+    "continueThemeAcrossLines": false
+  },
+  "installation": {
+    "method": "auto-update",
+    "packageManager": "npm"
+  },
+  "exportedBy": "2.2.32"
+}
